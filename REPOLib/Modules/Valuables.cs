@@ -84,17 +84,12 @@ public static class Valuables
         _canRegisterValuables = false;
     }
 
-    public static void RegisterValuable(GameObject prefab)
-    {
-        RegisterValuable(prefab?.name, prefab, presets:null);
-    }
-
     public static void RegisterValuable(GameObject prefab, List<string> presetNames = null)
     {
         RegisterValuable(prefab?.name, prefab, presetNames);
     }
 
-    public static void RegisterValuable(GameObject prefab, List<LevelValuables> presets = null)
+    public static void RegisterValuable(GameObject prefab, List<LevelValuables> presets)
     {
         RegisterValuable(prefab?.name, prefab, presets);
     }
