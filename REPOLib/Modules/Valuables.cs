@@ -84,6 +84,8 @@ public static class Valuables
         _canRegisterValuables = false;
     }
 
+
+    [Obsolete("", true)]
     public static void RegisterValuable(GameObject prefab)
     {
         RegisterValuable(prefab?.name, prefab, presets:null);
