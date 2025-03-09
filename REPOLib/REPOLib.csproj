@@ -69,10 +69,10 @@
   <!-- EDIT THESE SETTINGS -->
   <PropertyGroup>
     <!-- Steam library folder -->
-    <SteamLibrary>D:\SteamLibrary\steamapps\common</SteamLibrary>
+    <SteamLibrary>D:\Games\Steam\steamapps\common</SteamLibrary>
     
     <!-- Gale profile name -->
-    <GaleProfile>Mod Development</GaleProfile>
+    <GaleProfile>Mod Dev</GaleProfile>
   </PropertyGroup>
   
   <PropertyGroup>
@@ -111,5 +111,6 @@
   <!-- Copy DLL to Gale Zehs-REPOLib plugin folder -->
   <Target Name="CopyToGalePluginFolder" AfterTargets="PostBuildEvent">
     <Copy DestinationFolder="$(GalePluginFolder)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true" SourceFiles="$(TargetPath)" />
+    <Copy DestinationFolder="../../REPOAssetBundleBuilder/Assets/Plugins" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true" SourceFiles="$(TargetPath)" />
   </Target>
 </Project>
