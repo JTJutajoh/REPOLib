@@ -10,7 +10,7 @@ public class Plugin : BaseUnityPlugin
     private readonly Harmony _harmony = new Harmony(MyPluginInfo.PLUGIN_GUID);
 
     public static Plugin Instance { get; private set; }
-
+    
     #pragma warning disable IDE0051 // Remove unused private members
     private void Awake()
     #pragma warning restore IDE0051 // Remove unused private members
@@ -21,7 +21,11 @@ public class Plugin : BaseUnityPlugin
         REPOLib.Logger.LogInfo($"{MyPluginInfo.PLUGIN_NAME} has awoken!");
 
         _harmony.PatchAll(typeof(RunManagerPatch));
+        _harmony.PatchAll(typeof(EnemyDirectorPatch));
+        _harmony.PatchAll(typeof(StatsManagerPatch));
 
         ConfigManager.Initialize(Config);
+        
+        BundleLoader.LoadAllBundles(Paths.PluginPath, ".repobundle");
     }
 }

@@ -1,13 +1,15 @@
 # REPOLib
+[![GitHub](https://img.shields.io/badge/GitHub-REPOLib-brightgreen?style=for-the-badge&logo=GitHub)](https://github.com/ZehsTeam/REPOLib)
+[![Thunderstore Version](https://img.shields.io/thunderstore/v/Zehs/REPOLib?style=for-the-badge&logo=thunderstore&logoColor=white)](https://thunderstore.io/c/repo/p/Zehs/REPOLib/)
+[![Thunderstore Downloads](https://img.shields.io/thunderstore/dt/Zehs/REPOLib?style=for-the-badge&logo=thunderstore&logoColor=white)](https://thunderstore.io/c/repo/p/Zehs/REPOLib/)
+[![NuGet Version](https://img.shields.io/nuget/v/zehs.repolib?style=for-the-badge&logo=nuget)](https://www.nuget.org/packages/Zehs.REPOLib)
+
 #### Library for adding content to R.E.P.O.
-
-## ![Download](https://i.imgur.com/TpnrFSH.png) Download
-
-Download [REPOLib](https://thunderstore.io/c/repo/p/Zehs/REPOLib/) on Thunderstore.
 
 ## Features
 - Registering network prefabs.
 - Registering valuables.
+- Registering enemies.
 
 ## Usage
 <details><summary>Click to expand</summary><br>
@@ -33,6 +35,8 @@ public class YourMod : BaseUnityPlugin
 }
 ```
 
+<details><summary>Network prefabs</summary><br>
+
 Registering a network prefab.
 ```cs
 [BepInPlugin("You.YourMod", "YourMod", "1.0.0")]
@@ -53,6 +57,10 @@ public class YourMod : BaseUnityPlugin
     }
 }
 ```
+
+</details>
+
+<details><summary>Valuables</summary><br>
 
 Registering a valuable.
 ```cs
@@ -75,13 +83,71 @@ public class YourMod : BaseUnityPlugin
 }
 ```
 
+Registering a valuable to a specific level.
+```cs
+[BepInPlugin("You.YourMod", "YourMod", "1.0.0")]
+[BepInDependency(REPOLib.MyPluginInfo.PLUGIN_GUID, BepInDependency.DependencyFlags.HardDependency)]
+public class YourMod : BaseUnityPlugin
+{
+    // ...
+
+    private void Awake()
+    {
+        // ...
+
+        AssetBundle assetBundle = AssetBundle.LoadFromFile("your_assetbundle_file_path");
+        GameObject prefab = assetBundle.LoadAsset<GameObject>("your_valuable_prefab");
+
+        // Valuables Presets:
+        // "Valuables - Generic"
+        // "Valuables - Wizard"
+        // "Valuables - Manor"
+        // "Valuables - Arctic"
+
+        List<string> presets = new List<string> { "Valuables - Wizard" };
+
+        // Register a valuable.
+        REPOLib.Modules.Valuables.RegisterValuable(prefab, presets);
+    }
+}
+```
+
+</details>
+
+<details><summary>Enemies</summary><br>
+
+Registering an enemy.
+```cs
+[BepInPlugin("You.YourMod", "YourMod", "1.0.0")]
+[BepInDependency(REPOLib.MyPluginInfo.PLUGIN_GUID, BepInDependency.DependencyFlags.HardDependency)]
+public class YourMod : BaseUnityPlugin
+{
+    // ...
+
+    private void Awake()
+    {
+        // ...
+
+        AssetBundle assetBundle = AssetBundle.LoadFromFile("your_assetbundle_file_path");
+        EnemySetup enemy = assetBundle.LoadAsset<EnemySetup>("your_enemy_setup");
+
+        // Register an enemy.
+        REPOLib.Modules.Enemies.RegisterEnemy(enemy);
+    }
+}
+```
+</details>
 </details>
 
 > [!NOTE]
-> Registering a valuable will automatically register it as a network prefab.
+> Registering valuables automatically registers them as a network prefab. 
+> (Same for enemy spawn objects)
 
 > [!IMPORTANT]
-> You should only register network prefabs and valuables in your plugins awake function.
+> You should only register network prefabs and features from your plugins awake function.
+
+> [!TIP]
+> You can enable extended logging in the config settings to get more info about features being registered, custom network prefabs being spawned, and more.
 
 ## Contribute
 Anyone is free to contribute.
